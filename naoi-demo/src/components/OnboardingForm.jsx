@@ -93,22 +93,23 @@ export default function OnboardingForm () {
       <div className="w-full min-h-screen flex items-center justify-center flex-col p-4">
         <>
           <motion.div>  
-            <div className="w-full max-w-2xl flex flex-col gap-4 mb-6">
-              <div className="flex items-center justify-between gap-4 w-full">
-                <h1 className="text-center text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold text-gray-900 dark:text-gray-100">
+            <div className="w-full max-w-2xl flex flex-col gap-4 mb-6 px-2 sm:px-0">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full">
+                <h1 className="text-center sm:text-left text-lg sm:text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold text-gray-900 dark:text-gray-100 break-words">
                   {formTitle} as a <span className="text-indigo-800">{userType}</span>
                 </h1>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-full sm:w-auto">
                   {/* Back Button - Show for all steps except step 1 */}
                   {step > 1 && (
                     <motion.button
                       whileTap={{ scale: 0.95 }}
                       onClick={handleBack}
-                      className="bg-white text-sm text-gray-500 hover:text-black hover:bg-gray-100 transition-all duration-200 w-full md:w-auto md:max-w-[200px] px-8 py-2 text-base font-semibold rounded-full cursor-pointer active:translate-y-0"
+                      className="bg-white text-gray-500 hover:text-black hover:bg-gray-100 transition-all duration-200 w-full sm:w-auto sm:max-w-[200px] px-4 sm:px-8 py-2 text-sm sm:text-base font-semibold rounded-full cursor-pointer active:translate-y-0 flex items-center justify-center gap-2"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 sm:size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                       </svg>
+                      <span className="sm:hidden">Back</span>
                     </motion.button>
                   )}
                   {/* Next/Submit Button - Show for step 1 and 2 */}
@@ -118,14 +119,14 @@ export default function OnboardingForm () {
                       type={step === 1 ? "submit" : "button"}
                       form={step === 1 ? "onboarding-form" : undefined}
                       onClick={step === 2 ? nextDemoPage : undefined}
-                      className="bg-black text-white hover:bg-gray-800 hover:text-white transition-all duration-200 w-full md:w-auto md:max-w-[200px] px-8 py-2 text-base font-semibold rounded-full cursor-pointer active:translate-y-0"
+                      className="bg-black text-white hover:bg-gray-800 hover:text-white transition-all duration-200 w-full sm:w-auto sm:max-w-[200px] px-4 sm:px-8 py-2 text-sm sm:text-base font-semibold rounded-full cursor-pointer active:translate-y-0"
                     >
                       {step === 1 ? 'Next' : 'Continue'}
                     </motion.button>
                   )}
                 </div>
               </div>
-              <div className="w-1/2 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div className="w-full sm:w-1/2 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-black transition-all duration-300 rounded-full"
                   style={{ width: `${(step / 4) * 100}%` }}
