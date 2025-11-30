@@ -1,4 +1,4 @@
-<div class="w-full max-w-4xl">
+<div class="w-full max-w-4xl mt-10">
   <div class="mb-6">
     <a href="<%= pull_requests_path %>" class="text-blue-600 hover:text-blue-800 mb-4 inline-block">
       ← Back to Pull Requests
@@ -19,19 +19,17 @@
     </div>
   </div>
 
-  <% if @pull_request.comments.any? %>
+  <% if @pull_request.comment.present? %>
     <div class="space-y-4">
       <h2 class="text-2xl font-semibold mb-4 text-gray-800">AI Review Comments</h2>
-      <% @pull_request.comments.each do |comment| %>
-        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <div class="prose prose-sm max-w-none markdown-content">
-            <%= render_markdown(comment.content) %>
-          </div>
-          <p class="text-xs text-gray-400 mt-4 pt-4 border-t border-gray-100">
-            Review generated: <%= comment.created_at.strftime("%B %d, %Y at %I:%M %p") %>
-          </p>
+      <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div class="prose prose-sm max-w-none markdown-content">
+          <%= render_markdown(@pull_request.comment.content) %>
         </div>
-      <% end %>
+        <p class="text-xs text-gray-400 mt-4 pt-4 border-t border-gray-100">
+          Review generated: <%= @pull_request.comment.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+        </p>
+      </div>
     </div>
   <% else %>
     <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center">

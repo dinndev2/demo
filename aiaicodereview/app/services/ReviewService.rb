@@ -12,18 +12,26 @@ class ReviewService
        },
        options: { model: 'gemini-2.5-flash', server_sent_events: true }
      )
-      comment = Comment.new(pull_request: pull_request, content: "")
+      comment = Comment.create!(pull_request: pull_request, content: "")
       comments = []
       client.generate_content({ contents: { role: 'user', parts: { text: prompt } } }) do |chunk|
         # Safely drill into the structure
         text = chunk.dig("candidates", 0, "content", "parts", 0, "text")
+        comments << text
+        partial_content = comments.join("")
 
-        if text.present?
-          comments << text
-          comment.content = comments.join("")
-        end
+          # ---- LIVE BROADCAST ----
+        comment.update_columns(content: partial_content)
+        puts("partial_content: #{partial_content}")
+         # ---- MANUAL BROADCAST ----  
+        Turbo::StreamsChannel.broadcast_replace_to(
+          "pull_request_#{comment.pull_request_id}",
+          partial: "pull_requests/pull_request",
+          target: "pull_request_#{comment.pull_request_id}",
+          locals: { pr: comment.pull_request }
+        )
       end
-      
+
       comment.save!
     rescue => exception
       Rails.logger.error "AI review failed: #{exception.message}"

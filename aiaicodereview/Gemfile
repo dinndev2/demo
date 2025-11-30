@@ -32,12 +32,12 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 gem "gemini-ai", "~> 4.2"
-gem 'faraday'
 gem 'delayed_job_active_record'
 gem "octokit"         # GitHub API client
 gem "jwt"             # For GitHub App authentication
 gem "openssl"         # Already included in Rails usually
 gem "redcarpet"       # Markdown rendering
+gem "inline_svg"
 
 
 

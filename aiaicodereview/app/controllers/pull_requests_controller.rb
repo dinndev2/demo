@@ -2,11 +2,11 @@ class PullRequestsController < ApplicationController
   before_action :set_pull_request, only: [:show]
 
   def index
-    @pull_requests = PullRequest.includes(:comments).order(created_at: :desc)
+    @pull_requests = PullRequest.order(created_at: :desc)
   end
 
   def show
-    @pull_request = PullRequest.includes(:comments).find(params[:id])
+    @pull_request = PullRequest.find(params[:id])
   end
 
   def create
@@ -22,7 +22,7 @@ class PullRequestsController < ApplicationController
       end
       redirect_to pull_requests_path
     else
-      flash[:alert] = "Failed to create pull request"
+      flash[:alert] = "Failed to review pull request: #{@pull_request.errors.full_messages.join(", ")}"
       redirect_to pull_requests_path
     end
   end

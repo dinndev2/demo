@@ -1,10 +1,9 @@
 class PullRequest < ApplicationRecord
   belongs_to :user
-  has_many :comments
+  has_one :comment, dependent: :destroy
 
   validates :link, presence: true
   validates :link, format: { with: URI::DEFAULT_PARSER.make_regexp(['http', 'https']), message: 'must be a valid HTTP or HTTPS URL' }
-
 
   def repo_full_name
     parts = URI.parse(link).path.split("/")
