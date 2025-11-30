@@ -13,7 +13,9 @@ export default function OnboardingForm () {
   const [skills, setSkills] = useState([]);
   const [formTitle, setFormTitle] = useState('Onboarding');
   const [userType, setUserType] = useState('Worker');
-  const [recordedDays, setRecordedDays] = useState([]);
+  const [recordedDays, setRecordedDays] = useState([]); 
+  const [ProfilePicture, setProfilePicture] = useState([]);
+
 
   const [userData, setUserData] = useState({
     firstName: 'Demo',
